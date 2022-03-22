@@ -1,0 +1,7 @@
+.react-cnf-form .ant-form-item-with-help {
+    margin-bottom: 0;
+}
+
+.react-cnf-form .ant-form-item-explain.ant-form-item-explain-error {
+    position: absolute;
+}
