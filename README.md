@@ -1,9 +1,8 @@
 ### react-cnf-form
 
-
 [![][bundlesize-js-image]][unpkg-js-url]
 
-[bundlesize-js-image]: https://img.badgesize.io/https:/unpkg.com/react-cnf-form/dist/react-cnf-form.cjs.production.min.js?label=react%20cnf%20form.min.js&compression=gzip&style=flat
+[bundlesize-js-image]: https://img.badgesize.io/https:/unpkg.com/react-cnf-form/dist/react-cnf-form.cjs.production.min.js?label=react_cnf_form.min.js&compression=gzip&style=flat
 [unpkg-js-url]: https://unpkg.com/react-cnf-form/dist/react-cnf-form.cjs.production.min.js
 
 react-cnf-form组件是在 antd form组件的基础上封装; 其目的是为了通过配置化实现form表单功能，简化form表单页的实现
