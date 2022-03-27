@@ -1,4 +1,4 @@
-import React, {FunctionComponentElement} from 'react';
+import React, {ReactElement} from 'react';
 import {Form, FormInstance, FormProps} from 'antd';
 import render, {ItemOptions} from './renderItems';
 // import {useFormStorage} from './useStorage';
@@ -31,19 +31,9 @@ export interface StorageCnfForm extends CnfFromProps {
     storage: object | boolean
 }
 
-// export function StorageCnfForm({storage, ...rest}: StorageCnfForm) {
-//     rest.onValuesChange = useFormStorage(
-//         rest.form,
-//         storage,
-//         rest.onValuesChange || noop
-//     );
-//
-//     return <CnfForm {...rest} />;
-// }
-
 let CustomizeItems: Map<string, CMPFunc> = new Map();
 
-type CMPFunc = <T>(props: T) => FunctionComponentElement<T>
+type CMPFunc = <T>(props: T) => ReactElement<T>
 
 export function addFormItem(itemTypeName: string, CmpFunc: CMPFunc) {
     if (CustomizeItems.has(itemTypeName)) {
@@ -60,3 +50,13 @@ export function getCustomizeItem(typeName: string) {
 }
 
 export default CnfForm;
+
+// export function StorageCnfForm({storage, ...rest}: StorageCnfForm) {
+//     rest.onValuesChange = useFormStorage(
+//         rest.form,
+//         storage,
+//         rest.onValuesChange || noop
+//     );
+//
+//     return <CnfForm {...rest} />;
+// }
