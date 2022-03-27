@@ -86,6 +86,7 @@ export interface CnfFromProps extends FormProps {
 }
 ```
 由于form实例（FormInstance）在表单项中可能会经常遇到这里设置为了必选项；
+
 5. `ItemOption` 配置项支持3中类型：对象、渲染函数、WrapOption
 ```typescript
 type ItemOption = (Option | RenderFn | WrapOption);
