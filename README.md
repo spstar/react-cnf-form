@@ -143,7 +143,7 @@ addFormItem('customizeSelect', function (props) {
     `Tree`: (itemType: 'tree')\
     `Mentions`: (itemType: 'mentions')\
     `Transfer`: (itemType: 'transfer')\
-    `Upload`: (itemType: 'upload')\
+    `Upload`: (itemType: 'upload')
      
 2. 隐藏字段怎么配置？
     支持隐藏字段(Form.Item 本身就支持隐藏字段)，配置如下：
