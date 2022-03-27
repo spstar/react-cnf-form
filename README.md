@@ -3,13 +3,117 @@
 
 [![][bundlesize-js-image]][unpkg-js-url]
 
-[bundlesize-js-image]: https://img.badgesize.io/https:/unpkg.com/react-elf/dist/react-elf.cjs.production.min.js?label=react%20elf.min.js&compression=gzip&style=flat
-[unpkg-js-url]: https://unpkg.com/react-elf/dist/react-elf.cjs.production.min.js
+[bundlesize-js-image]: https://img.badgesize.io/https:/unpkg.com/react-cnf-form/dist/react-cnf-form.cjs.production.min.js?label=react%20cnf%20form.min.js&compression=gzip&style=flat
+[unpkg-js-url]: https://unpkg.com/react-cnf-form/dist/react-cnf-form.cjs.production.min.js
 
 
-## 功能说明 
-本（CnfForm）表单组件是在 antd form组件的基础上封装; 其目的是为了解耦form表单的操作；
-通过传入JSON配置项的方式实现`所有`表单页面；简化业务代码。
+### 功能说明 
+本（CnfForm）表单组件是在 antd form组件的基础上封装; 其目的是为了通过配置化实现form表单功能，简化form表单页的实现
+让业务能够方便的拆分为各种组件。实现功能的解耦；
+
+### 简单实用示例
+```js
+// options.js 配置项文件
+
+export default [{
+    hidden: true,
+    name: 'id',
+}, {
+    // itemType: 'input',   // 默认类型为'input'可以省略；
+    name: 'account',
+    label: 'account',
+    itemProps: {    // 如果不需要 对组件传入参数，该项也可以省略
+    }
+},
+    function (render) {
+        const {searchOptions} = getElfState('example');
+
+        return render([
+            {
+                itemType: 'select',
+                label: '带搜索功能的选择框',
+                name: 'agentCode',
+                required: true,
+                rules: required,
+                // className: 'flex-item-control-hidden',
+                itemProps: {
+                    filterOption: false,
+                    showSearch: true,
+                    onSearch: searchAction(),
+                    dropdownMatchSelectWidth: false,
+                    options: searchOptions
+                }
+            }
+        ]);
+    }, {
+        Wrap: Wrap,
+        items: [{
+            label: '模块内的项',
+            name: 'modelItem',
+            itemProps: {
+                maxLength: 5
+            }
+        }, function (render) {
+            const {disabledBtn} = getElfState('example');
+
+            return render([
+                {
+                    itemType: 'radioGroup',
+                    name: 'trigger',
+                    label: '开关',
+                    required: true,
+                    rules: required,
+                    beforeContent() {
+                        function onChange(checked) {
+                            getElfDispatch('example')('setDisabledBtn', !checked);
+                        }
+
+                        return (
+                            <div style={{marginTop: 6}}>
+                                <Switch defaultChecked onChange={onChange}/>
+                            </div>
+                        );
+                    },
+                    itemProps: {
+                        disabled: disabledBtn,
+                        style: {marginTop: 6},
+                        options: [
+                            {
+                                label: '开启',
+                                value: '1'
+                            },
+                            {
+                                label: '关闭',
+                                value: '0'
+                            }
+                        ]
+                    },
+                    afterContent(option, formIns, render) {
+                        return (
+                            <div>可以动态控制该字段是否启用</div>
+                        );
+                    }
+                }
+            ]);
+        }]
+    },
+    {
+        label: '自定义组件',
+        name: 'customizeCMP',
+        className: 'mt-10',
+        itemRender() {
+            return <CompanySelect/>
+        }
+    },
+    {
+        itemType: 'customizeSelect',
+        label: '自定义组件类型',
+        name: 'customizeSelect',
+        className: 'mt-10'
+    }
+];
+
+```
 
 ## 常规使用示例
 

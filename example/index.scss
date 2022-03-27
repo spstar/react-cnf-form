@@ -1,0 +1,36 @@
+
+.example-form {
+  width: 80%;
+  margin: auto;
+
+  .ant-form-item-label {
+    width: 170px;
+  }
+  .ant-form-item-control {
+    width: calc(100% - 170px);
+  }
+
+  .wrap-container {
+
+    .ant-form-item-label {
+      width: 160px;
+    }
+    .ant-form-item-control {
+      width: calc(100% - 150px);
+    }
+  }
+}
+
+
+.ml-8 {
+  margin-left: 8px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.btn-group-container {
+  display: flex;
+  justify-content: flex-end;
+}

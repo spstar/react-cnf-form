@@ -1,7 +1,7 @@
 import React, {FunctionComponentElement} from 'react';
 import {Form, FormInstance, FormProps} from 'antd';
-import render from './renderItems';
-import {useFormStorage} from './useStorage';
+import render, {ItemOptions} from './renderItems';
+// import {useFormStorage} from './useStorage';
 
 export const noop = () => {
 };
@@ -15,10 +15,10 @@ export const noop = () => {
  */
 export interface CnfFromProps extends FormProps {
     form: FormInstance;
-    items: [];
+    items: ItemOptions;
 }
 
-export default function CnfForm({className, items, children, ...rest}: CnfFromProps) {
+const CnfForm = function CnfForm({className, items, children, ...rest}: CnfFromProps) {
     return (
         <Form {...rest} className={`${className} react-cnf-form`}>
             {render(items, rest.form)}
@@ -31,24 +31,16 @@ export interface StorageCnfForm extends CnfFromProps {
     storage: object | boolean
 }
 
-export function StorageCnfForm({storage, ...rest}: StorageCnfForm) {
-    rest.onValuesChange = useFormStorage(
-        rest.form,
-        storage,
-        rest.onValuesChange || noop
-    );
+// export function StorageCnfForm({storage, ...rest}: StorageCnfForm) {
+//     rest.onValuesChange = useFormStorage(
+//         rest.form,
+//         storage,
+//         rest.onValuesChange || noop
+//     );
+//
+//     return <CnfForm {...rest} />;
+// }
 
-    return <CnfForm {...rest} />;
-}
-
-/**
- * {
- *     name: (option) => <Component {...option} />
- *     name2: (option) => <Component2 {...option} />
- * }
- *
- * @type {Map<any, any>}
- */
 let CustomizeItems: Map<string, CMPFunc> = new Map();
 
 type CMPFunc = <T>(props: T) => FunctionComponentElement<T>
@@ -66,3 +58,5 @@ export function addFormItem(itemTypeName: string, CmpFunc: CMPFunc) {
 export function getCustomizeItem(typeName: string) {
     return CustomizeItems.get(typeName);
 }
+
+export default CnfForm;

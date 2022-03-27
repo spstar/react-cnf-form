@@ -30,7 +30,7 @@ const {Password} = Input;
 
 interface ItemProps {
     children?: ReactNode | ReactChildren;
-    // TODO: antd Form 组件的剩余参数如何定义？？
+    [prop:string]: any;
 }
 
 interface Option extends FormItemProps {
@@ -50,9 +50,9 @@ interface WrapOption {
 }
 
 type Render = (args: ItemOption | ItemOptions, fIns: FormInstance) => ReactNode[];
-type RenderFn= (render: Render, fIns: FormInstance) => ReactNode[];
+type RenderFn = (render: Render, fIns: FormInstance) => ReactNode[];
 type ItemOption = (Option | RenderFn | WrapOption);
-type ItemOptions = ItemOption[];
+export type ItemOptions = ItemOption[];
 
 const render: Render = (arg, formIns: FormInstance) => {
     return renderItems(Array.isArray(arg) ? arg : [arg], formIns);
