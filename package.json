@@ -1,5 +1,5 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.3",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -8,6 +8,14 @@
     "/README.md",
     "/LICENSE"
   ],
+  "keywords": [
+    "react",
+    "antd",
+    "form",
+    "react-cnf-form",
+    "config json"
+  ],
+  "description": "React configuration form",
   "engines": {
     "node": ">=10"
   },
