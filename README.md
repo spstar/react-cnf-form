@@ -64,13 +64,13 @@ export function Form() {
 #### 说明
 主要思想：
 1. 不影响ant组件功能的所有配置，只提供配置化渲染功能
-2. 增加几个额外必要的配置项来处理结构问题；以下是每条配置项中增加的配置项说明：
-    `itemType` 指定组件类型
-    `itemRender` 一般用来定义不能复用功能的组件（模块），提供该配置，itemType 会忽略；
-    `beforeContent` 用来渲染组件之前的内容
-    `afterContent` 用来渲染组件之后的内容
-    `itemProps` 配置 itemType 指定组件的配置项
-3. 通过提供一个`Wrap`组件来实现表单项目的分块
+2. 增加几个额外必要的配置项来处理结构问题；以下是每条配置项中增加的配置项说明：\
+    `itemType` 指定组件类型\
+    `itemRender` 一般用来定义不能复用功能的组件（模块），提供该配置，itemType 会忽略；\
+    `beforeContent` 用来渲染组件之前的内容\
+    `afterContent` 用来渲染组件之后的内容\
+    `itemProps` 配置 itemType 指定组件的配置项\
+3. 通过提供一个`Wrap`组件来实现表单项目的分块\
 ```typescript
 interface WrapOption {
     Wrap: ReactElement;
@@ -145,16 +145,14 @@ addFormItem('customizeSelect', function (props) {
     `Transfer`: (itemType: 'transfer')\
     `Upload`: (itemType: 'upload')
      
-2. 隐藏字段怎么配置？
-    支持隐藏字段(Form.Item 本身就支持隐藏字段)，配置如下：
-    `
-        {
-             hidden: true,
-             name: 'id'
-         }
-     `
-3. 无边框展示字段，如果不想自定义一个特别的组件可以使用无边框Input:
-     支持展示字段（Input 字段可以设置无边框样式），配置如下：
+2. 隐藏字段怎么配置？\
+    支持隐藏字段(Form.Item 本身就支持隐藏字段)，配置如下：\
+    `{
+        hidden: true,
+        name: 'id'
+     }`
+3. 无边框展示字段，如果不想自定义一个特别的组件可以使用无边框Input:\
+     支持展示字段（Input 字段可以设置无边框样式），配置如下：\
      `
      {
         name: 'description',
@@ -164,12 +162,12 @@ addFormItem('customizeSelect', function (props) {
         }
      }
      `
-4. 如何动态增加一个自定义的组件?
-    参加上面说明中的第6条
+4. 如何动态增加一个自定义的组件?\
+    参加上面说明中的第6条\
     注意，如果你需要自定义组件，那么你需要遵守ant-form 自定义Form.Item组件的规范，详细参考antd 的文档
 
 
-其它关于antd `Form`/`Form.Item` 的特别说明
+其它关于antd `Form.Item` 的说明
 
 有些字段其值并不是通过value 获取，如：`Switch`组件 可以通过[Form.Item](https://ant-design.gitee.io/components/form-cn/#Form.Item) 的`valuePropName`来指定；
 Form.Item 内的组件如果不是`只有`一个children ，则需要指定单独的\
