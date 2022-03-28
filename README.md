@@ -69,8 +69,9 @@ export function Form() {
     `itemRender` 一般用来定义不能复用功能的组件（模块），提供该配置，itemType 会忽略；\
     `beforeContent` 用来渲染组件之前的内容\
     `afterContent` 用来渲染组件之后的内容\
-    `itemProps` 配置 itemType 指定组件的配置项\
-3. 通过提供一个`Wrap`组件来实现表单项目的分块\
+    `itemProps` 配置 itemType 指定组件的配置项
+    
+3. 通过提供一个`Wrap`组件来实现表单项目的分块
 ```typescript
 interface WrapOption {
     Wrap: ReactElement;
