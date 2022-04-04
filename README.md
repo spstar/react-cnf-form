@@ -74,7 +74,7 @@ export function Form() {
 3. 通过提供一个`Wrap`组件来实现表单项目的分块
 ```typescript
 interface WrapOption {
-    Wrap: ReactElement;
+    Wrap: ComponentType;
     items: ItemOptions;
     key?: any;
 }
@@ -99,17 +99,19 @@ type RenderFn = (render: Render, fIns: FormInstance) => ReactNode[];
    `渲染函数RenderFn` 一般用于需要动态控制配置项的使用使用；
    `WrapOption` 对于复杂的表单经常需要分区块展示，这里提供了一个包裹组件配置来实现这种功能
    
-6. 有些常用组件（文件上传预览模块等）可以通过`addFormItem`添加到组件库
+6. 有些常用组件（文件上传预览模块等）可以通过`addItemType`添加到组件库
 ```typescript
-type CMPFunc = <T>(props: T) => ReactElement<T>;
-type AddFormItem = (itemTypeName: string, CmpFunc: CMPFunc) => void;
+addItemType = (itemTypeName: string, CMP: ComponentType) => undefined;
 ```
-```js
-import {addFormItem} from 'react-cnf-form';
 
-addFormItem('customizeSelect', function (props) {
-    return <CSelect {...props} />;
-});
+```typescript jsx
+import {FC} from 'react';
+import {addItemType} from 'react-cnf-form';
+import {Select} from 'antd';
+
+const CSelect: FC = (props) => <Select {...props} />;
+
+addItemType('customizeSelect', CSelect);
 ```
 ```js
 // options.js
@@ -170,10 +172,10 @@ addFormItem('customizeSelect', function (props) {
 
 其它关于antd `Form.Item` 的说明
 
-有些字段其值并不是通过value 获取，如：`Switch`组件 可以通过[Form.Item](https://ant-design.gitee.io/components/form-cn/#Form.Item) 的`valuePropName`来指定；
+有些字段其值并不是通过value 获取，如：`Switch`组件 可以通过[Form.Item](https://ant-design.gitee.io/components/form-cn/#Form.Item) 的`valuePropName`来指定；\
 Form.Item 内的组件如果不是`只有`一个children ，则需要指定单独的\
-`<Form.Item nostyle ><Input /> </Form.Item>` \
-包裹；在当前Form组件内部已经处理；但是如果配置项中使用`itemRender` 或者其它自定义的
+`<Form.Item nostyle ><Input /></Form.Item>`包裹；\
+在当前Form组件内部已经处理；但是如果配置项中使用`itemRender` 或者其它自定义的
 `Item`项，需要接收value值并正确处理其值的改变；
 
 

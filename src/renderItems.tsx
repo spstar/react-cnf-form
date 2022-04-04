@@ -1,4 +1,4 @@
-import React, {ReactChild, ReactChildren, ReactElement, ReactNode} from 'react';
+import React, {ComponentType, ReactChild, ReactChildren, ReactElement, ReactNode} from 'react';
 import {
     Cascader,
     Checkbox,
@@ -19,7 +19,7 @@ import {
     TreeSelect,
     Upload
 } from 'antd';
-import {getCustomizeItem, noop} from './index';
+import {getComponentItem, getCustomizeItem, noop} from './index';
 
 const CheckBoxGroup = Checkbox.Group;
 const RadioGroup = Radio.Group;
@@ -30,7 +30,8 @@ const {Password} = Input;
 
 interface ItemProps {
     children?: ReactNode | ReactChildren;
-    [prop:string]: any;
+
+    [prop: string]: any;
 }
 
 interface Option extends FormItemProps {
@@ -44,7 +45,7 @@ interface Option extends FormItemProps {
 }
 
 interface WrapOption {
-    Wrap: ReactElement;
+    Wrap: ComponentType;
     items: ItemOptions;
     key?: any;
 }
@@ -54,14 +55,14 @@ type RenderFn = (render: Render, fIns: FormInstance) => ReactNode[];
 type ItemOption = (Option | RenderFn | WrapOption);
 export type ItemOptions = ItemOption[];
 
-const render: Render = (arg, formIns: FormInstance) => {
+const render: Render = (arg, formIns) => {
     return renderItems(Array.isArray(arg) ? arg : [arg], formIns);
 };
 
 function renderItems(items: ItemOptions, fIns: FormInstance): ReactNode[] {
     return items.map((it, idx) => {
         if ("Wrap" in it && it.Wrap) {
-            const Wrap: any = it.Wrap;
+            const Wrap = it.Wrap;
 
             return (
                 <Wrap key={it.key || idx}>
@@ -111,10 +112,13 @@ function renderItem(option: Option, fIns: FormInstance): ReactElement {
 
 function ItemTypeRender(itemType: string | undefined, props = {} as ItemProps) {
     const {children, ...itemProps} = props;
-    const CustomizeItem = itemType ? getCustomizeItem(itemType) : undefined;
+    const CMP = itemType ? getComponentItem(itemType) : undefined;
+    const CmpFunc = itemType ? getCustomizeItem(itemType) : undefined;
 
-    if (CustomizeItem) {
-        return CustomizeItem(props);
+    if (CMP) {
+        return <CMP {...props} />
+    } else if (CmpFunc) {
+        return CmpFunc(props);
     }
 
     switch (itemType) {

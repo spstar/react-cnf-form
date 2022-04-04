@@ -40,9 +40,9 @@ export default function ExampleForm() {
                 <li>
                     每一条配置项支持所有 <a href="https://ant-design.gitee.io/components/form-cn/#Form.Item">From.Item</a> 的配置
                     在此基础上又增加了三个配置方法：<br/>
-                    itemRender?: (option: Option, fIns: FormInstance) => ReactChild | ReactChildren;<br/>
-                    beforeContent?: (option: Option, fIns: FormInstance, render: Render) => any;<br/>
-                    afterContent?: (option: Option, fIns: FormInstance, render: Render) => any;<br/>
+                    {`itemRender?: (option: Option, fIns: FormInstance) => ReactChild | ReactChildren;`}<br/>
+                    {`beforeContent?: (option: Option, fIns: FormInstance, render: Render) => any;`}<br/>
+                    {`afterContent?: (option: Option, fIns: FormInstance, render: Render) => any;`}<br/>
                 </li>
                 <li>
                     每一条项配置通过 itemType 指定组件类型，默认是'input'类型；<br/>
@@ -66,14 +66,14 @@ export default function ExampleForm() {
             <CnfForm form={formIns} items={items} onFinish={onFinish}>
                 <section className="mt-10 btn-group-container">
                     <Button htmlType="submit" type="primary">
-                        查询
+                        提 交
                     </Button>
                     <Button
                         className="ml-8"
                         htmlType="button"
                         onClick={onReset}
                     >
-                        重置
+                        重 置
                     </Button>
                 </section>
             </CnfForm>

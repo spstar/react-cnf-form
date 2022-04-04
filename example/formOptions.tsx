@@ -3,13 +3,12 @@ import {getElfDispatch, getElfState, useElfSubscribe} from 'react-elf';
 import {delay, noop} from './utils';
 import {getSearchData} from './fetchData';
 import {required} from './rules'
-import {Select, SelectProps, Switch} from 'antd';
-import {addFormItem} from '../.';
+import {Select, SelectProps} from 'antd';
+import {addItemType, ItemOptions} from '../.';
 
 
-addFormItem('customizeSelect', function (props) {
-    return <CompanySelect {...props} />;
-});
+addItemType('customizeSelect', CompanySelect);
+
 const searchAction = function () {
     const dispatch = getElfDispatch('example');
 
@@ -36,7 +35,7 @@ export default [{
         bordered: false
     }
 },
-    function (render) {
+    function (render, fIns) {
         const {searchOptions} = getElfState('example');
 
         return render([
@@ -55,16 +54,16 @@ export default [{
                     options: searchOptions
                 }
             }
-        ]);
+        ], fIns);
     }, {
-        Wrap: Wrap,
+        Wrap,
         items: [{
             label: '模块内的项',
             name: 'modelItem',
             itemProps: {
                 maxLength: 5
             }
-        }, function (render) {
+        }, function (render, fIns) {
             const {disabledBtn} = getElfState('example');
 
             return render([
@@ -74,16 +73,20 @@ export default [{
                     label: '开关',
                     required: true,
                     rules: required,
-                    beforeContent() {
-                        function onChange(checked) {
-                            getElfDispatch('example')('setDisabledBtn', !checked);
-                        }
-
-                        return (
-                            <div style={{marginTop: 6}}>
-                                <Switch defaultChecked onChange={onChange}/>
-                            </div>
-                        );
+                    className: 'trigger-item',
+                    beforeContent(option, fIns, render) {
+                        return render({
+                            itemType: 'switch',
+                            className: 'd-ib mr-12 mb-0',
+                            // 如果不提供 name 值，需要指定一个key
+                            key: 'trigger-key',
+                            itemProps: {
+                                defaultChecked: true,
+                                onChange(checked) {
+                                    getElfDispatch('example')('setDisabledBtn', !checked);
+                                }
+                            }
+                        }, fIns);
                     },
                     itemProps: {
                         disabled: disabledBtn,
@@ -105,7 +108,7 @@ export default [{
                         );
                     }
                 }
-            ]);
+            ], fIns);
         }]
     },
     {
@@ -122,7 +125,7 @@ export default [{
         name: 'customizeSelect',
         className: 'mt-10'
     }
-];
+] as ItemOptions;
 
 
 function Wrap({children}) {
